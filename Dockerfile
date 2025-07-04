@@ -7,6 +7,14 @@ RUN go mod download
 
 COPY . .
 
-RUN go build -o app
+WORKDIR /app/cmd/server
+
+
+RUN go build -o /app/app
+
+WORKDIR /app
 
 CMD ["./app"]
+
+
+
