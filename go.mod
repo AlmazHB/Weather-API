@@ -5,6 +5,7 @@ go 1.21
 require (
 	github.com/joho/godotenv v1.5.1
 	gorm.io/driver/postgres v1.6.0
+	gorm.io/gorm v1.25.10
 )
 
 require (
@@ -17,5 +18,4 @@ require (
 	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/sync v0.10.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
-	gorm.io/gorm v1.25.10 // indirect
 )

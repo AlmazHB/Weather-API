@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"weather-api/models"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
@@ -16,13 +17,16 @@ func Init() {
 	_ = godotenv.Load()
 
 	dsn := os.Getenv("DB_DSN")
-	if dsn == "" {
-		log.Fatal("DB_DSN environment variable is required")
-	}
+	fmt.Println("DSN:", dsn)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatal("failed to connect to DB:", err)
+		log.Fatal("Failed to connect to DB:", err)
+	}
+
+	err = db.AutoMigrate(&models.WeatherReading{})
+	if err != nil {
+		log.Fatal("Failed to migrate DB:", err)
 	}
 
 	DB = db
