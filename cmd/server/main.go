@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
 	"weather-api/internal/db"
 	"weather-api/internal/handlers"
 	"weather-api/internal/services"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -18,11 +18,16 @@ func main() {
 
 	services.StartCollector()
 
-	//Handler
+	//Handlers
 
-	http.HandleFunc("/weather/current", handlers.GetCurrentWeather)
-	fmt.Println("🚀 Server running on :8080")
+	r := gin.Default()
 
-	http.ListenAndServe(":8080", nil)
+	r.GET("/weather/current", handlers.GetCurrent)
+	r.GET("/weather/historical", handlers.GetHistorical)
+	r.GET("/weather/historical/max", handlers.GetMax)
+	r.GET("/weather/historical/min", handlers.GetMin)
+	r.GET("/weather/historical/avg", handlers.GetAvg)
+	r.GET("/weather/by_time", handlers.GetByTime)
+	r.GET("/health", handlers.Health)
 
 }
